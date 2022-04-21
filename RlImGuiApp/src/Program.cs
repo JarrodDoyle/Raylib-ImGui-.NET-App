@@ -5,8 +5,6 @@ namespace RlImGuiApp;
 
 internal static class Program
 {
-    private static int _monitorId;
-
     private static void InitWindow(int width, int height, string title)
     {
         Raylib.SetConfigFlags(ConfigFlags.FLAG_MSAA_4X_HINT | ConfigFlags.FLAG_VSYNC_HINT |
@@ -14,19 +12,6 @@ internal static class Program
         Raylib.SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
         Raylib.InitWindow(width, height, title);
         Raylib.SetWindowMinSize(640, 480);
-
-        _monitorId = Raylib.GetCurrentMonitor();
-        Raylib.SetTargetFPS(Raylib.GetMonitorRefreshRate(_monitorId));
-    }
-
-    private static void UpdateWindow()
-    {
-        int newMonitor = Raylib.GetCurrentMonitor();
-        if (newMonitor != _monitorId)
-        {
-            _monitorId = newMonitor;
-            Raylib.SetTargetFPS(Raylib.GetMonitorRefreshRate(_monitorId));
-        }
     }
 
     private static void Main(string[] args)
@@ -56,7 +41,6 @@ internal static class Program
             ImGuiController.End();
 
             Raylib.EndDrawing();
-            UpdateWindow();
         }
 
         ImGuiController.Shutdown();
