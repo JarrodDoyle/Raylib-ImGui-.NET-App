@@ -1,6 +1,6 @@
-namespace RlImGuiApp;
+namespace Application.UI;
 
-public abstract class UiLayer
+public abstract class BaseUiLayer
 {
     public bool Open { get; set; }
 

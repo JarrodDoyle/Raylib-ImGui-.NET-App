@@ -1,7 +1,8 @@
-﻿using Raylib_cs;
+﻿using Application.UI;
+using Raylib_cs;
 using ImGuiNET;
 
-namespace RlImGuiApp;
+namespace Application;
 
 internal static class Program
 {
@@ -14,18 +15,18 @@ internal static class Program
         Raylib.SetWindowMinSize(640, 480);
     }
 
-    private static void Main(string[] args)
+    private static void Main()
     {
         InitWindow(1280, 720, "Raylib + Dear ImGui app");
         
         ImGuiController.Setup();
-        var uiLayers = new List<UiLayer> {new ExampleUiLayer {Open = true}};
-        foreach (UiLayer layer in uiLayers)
+        var uiLayers = new List<BaseUiLayer> {new ExampleLayer {Open = true}};
+        foreach (BaseUiLayer layer in uiLayers)
             layer.Attach();
 
         while (!Raylib.WindowShouldClose())
         {
-            foreach (UiLayer layer in uiLayers)
+            foreach (BaseUiLayer layer in uiLayers)
                 layer.Update();
 
             Raylib.BeginDrawing();
@@ -36,7 +37,7 @@ internal static class Program
             ImGuiController.Begin();
             ImGui.DockSpaceOverViewport(ImGui.GetMainViewport(), ImGuiDockNodeFlags.PassthruCentralNode);
             ImGui.ShowDemoWindow();
-            foreach (UiLayer layer in uiLayers)
+            foreach (BaseUiLayer layer in uiLayers)
                 layer.Render();
             ImGuiController.End();
 

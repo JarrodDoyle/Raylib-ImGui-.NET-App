@@ -1,9 +1,9 @@
 using ImGuiNET;
 using Raylib_cs;
 
-namespace RlImGuiApp;
+namespace Application.UI;
 
-public class ExampleUiLayer : UiLayer
+public class ExampleLayer : BaseUiLayer
 {
     private Texture2D _texture;
     private float _time;
@@ -36,9 +36,11 @@ public class ExampleUiLayer : UiLayer
 
     public override void Update()
     {
+        Raylib.UnloadTexture(_texture);
         _time += Raylib.GetFrameTime();
         int c = (int) (255 * (Math.Sin(_time) + 1) / 2);
         Image image = Raylib.GenImageColor(640, 480, new Color(c, c, c, 255));
         _texture = Raylib.LoadTextureFromImage(image);
+        Raylib.UnloadImage(image);
     }
 }
