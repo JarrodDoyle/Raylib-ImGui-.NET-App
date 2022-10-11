@@ -3,7 +3,7 @@ using Raylib_cs;
 
 namespace Application.UI;
 
-public class ExampleLayer : BaseUiLayer
+public class ExamplePanel : Panel
 {
     private Texture2D _texture;
     private float _time;
@@ -11,11 +11,13 @@ public class ExampleLayer : BaseUiLayer
     public override void Attach()
     {
         Console.WriteLine("Attached layer");
+        Open = true;
     }
 
     public override void Detach()
     {
         Console.WriteLine("Detached layer");
+        Open = false;
     }
 
     public override void Render()
@@ -31,7 +33,7 @@ public class ExampleLayer : BaseUiLayer
             ImGui.End();
         }
 
-        Open = isOpen;
+        if (!isOpen) Detach();
     }
 
     public override void Update()
